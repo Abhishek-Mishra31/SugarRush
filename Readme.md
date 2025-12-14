@@ -29,15 +29,15 @@ This project was built following strict **Test-Driven Development (TDD)** princi
 The backend exposes the following RESTful API endpoints as per the project requirements:
 
 ### 🔐 Authentication
-* `POST /api/auth/register` - Register a new user [cite: 14]
-* `POST /api/auth/login` - Login and receive a JWT [cite: 14]
+* `POST /api/auth/register` - Register a new user
+* `POST /api/auth/login` - Login and receive a JWT
 
 ### 🍬 Sweets Management
-* `GET /api/sweets` - View a list of all available sweets [cite: 17]
+* `GET /api/sweets` - View a list of all available sweets
 * `GET /api/sweets/search` - Search for sweets by name, category, or price range 
-* `POST /api/sweets` - Add a new sweet (Protected) [cite: 16]
-* `PUT /api/sweets/:id` - Update a sweet's details (Protected) [cite: 19]
-* `DELETE /api/sweets/:id` - Delete a sweet (Admin only) [cite: 20]
+* `POST /api/sweets` - Add a new sweet (Protected)
+* `PUT /api/sweets/:id` - Update a sweet's details (Protected)
+* `DELETE /api/sweets/:id` - Delete a sweet (Admin only)
 
 ### 📦 Inventory Control
 * `POST /api/sweets/:id/purchase` - Purchase a sweet, decreasing its quantity. 
@@ -94,7 +94,7 @@ Follow these instructions to set up and run the project locally.
 
 ## 🧪 Testing & TDD
 
-This project follows **Test-Driven Development (TDD)**. [cite_start]The backend logic was written using a Red-Green-Refactor loop[cite: 36, 37].
+This project follows **Test-Driven Development (TDD)**. backend logic was written using a Red-Green-Refactor loop.
 
 To run the test suite (Backend):
 

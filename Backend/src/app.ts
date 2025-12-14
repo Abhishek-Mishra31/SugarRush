@@ -9,11 +9,19 @@ dotenv.config();
 
 const app: Application = express();
 
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
  
 const liveDBURI = process.env.LIVE_MONGODB_URI || '';
+
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://your-frontend-app.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 const connectDB = async (): Promise<void> => {
     try {

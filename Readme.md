@@ -4,6 +4,8 @@ A full-stack Sweet Shop Management System built with modern web technologies. Th
 
 This project was built following strict **Test-Driven Development (TDD)** principles and adheres to Clean Architecture standards.
 
+### Live Application : https://sugarrush-frontend.onrender.com
+
 ---
 
 ## 🚀 Tech Stack

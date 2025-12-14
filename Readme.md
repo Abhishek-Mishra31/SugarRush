@@ -139,12 +139,26 @@ Using AI for the testing phase allowed me to focus more on the logic and busines
 *(Screenshots of the final application in action)*
 
 ### Dashboard View
-![Dashboard Screenshot](./screenshots/dashboard.png)
+![Dashboard Screenshot](./Screenshots/Dashboard_Snap.png)
 *Displays all sweets with search and filter options.*
 
 ### Admin Panel
-![Admin Screenshot](./screenshots/admin.png)
+![Admin Screenshot](./Screenshots/AdminPanel_Snap.png)
 *Interface for adding, updating, and restocking sweets.*
+
+### Login View
+![Login Screenshot](./Screenshots/Login_Snap.png)
+*Interface for user and admin login functionlities.*
+
+### Registraton View
+![Registraton Screenshot](./Screenshots/Registration_Snap.png)
+*Interface for user and admin Registration functionlities.*
+
+### Admin Login View
+![Admin Login Screenshot](./Screenshots/AdminLogin_Snap.png)
+*Interface for only admin login functionlities.
+
+
 
 ### Test Execution Report
 ![Test Results](./Testing_Snap/Test_Auth_Snap.png)

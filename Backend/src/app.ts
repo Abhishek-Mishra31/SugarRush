@@ -12,10 +12,12 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+ 
+const liveDBURI = process.env.LIVE_MONGODB_URI || '';
 
 const connectDB = async (): Promise<void> => {
     try {
-        const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/sweetshop_DB';
+        const mongoURI = liveDBURI || 'mongodb://localhost:27017/sweetshop_DB';
         await mongoose.connect(mongoURI);
         console.log('MongoDB connected successfully');
     } catch (error) {

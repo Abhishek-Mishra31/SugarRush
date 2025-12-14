@@ -68,6 +68,8 @@ Follow these instructions to set up and run the project locally.
     PORT=5000
     MONGO_URI=mongodb://localhost:27017/sweetshop
     JWT_SECRET=your_super_secret_key
+    ADMIN_SECRET=your_admin_secret_key
+    
     ```
 4.  Run the development server:
     ```bash
@@ -164,5 +166,6 @@ Using AI for the testing phase allowed me to focus more on the logic and busines
 ![Test Results](./Testing_Snap/Test_Auth_Snap.png)
 ![Test Results](./Testing_Snap/Test_snap.png)
 ![Test Results](./Testing_Snap/Test_Sweet_Snap.png)
+![Test Results](./Testing_Snap/2nd_Testing_Snap.png)
 
 *Evidence of passing or failing test suite.*

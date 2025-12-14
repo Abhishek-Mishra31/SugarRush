@@ -7,13 +7,13 @@ let mongoServer: MongoMemoryServer;
 let authToken: string;
 let adminToken: string;
 
-// Setup in-memory MongoDB for testing
+
 beforeAll(async () => {
     mongoServer = await MongoMemoryServer.create();
     const mongoUri = mongoServer.getUri();
     await mongoose.connect(mongoUri);
 
-    // Register and login a regular user
+
     await request(app)
         .post('/api/auth/register')
         .send({
@@ -68,7 +68,7 @@ describe('Sweets API - Create Sweet', () => {
     describe('POST /api/sweets', () => {
         it('should create a new sweet with authenticated user', async () => {
             const response = await request(app)
-                .post('/api/sweets/addSweet')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Chocolate Bar',
@@ -88,7 +88,7 @@ describe('Sweets API - Create Sweet', () => {
 
         it('should not create sweet without authentication', async () => {
             const response = await request(app)
-                .post('/api/sweets/addSweet')
+                .post('/api/sweets/')
                 .send({
                     name: 'Chocolate Bar',
                     category: 'Chocolate',
@@ -102,7 +102,7 @@ describe('Sweets API - Create Sweet', () => {
 
         it('should not create sweet with missing required fields', async () => {
             const response = await request(app)
-                .post('/api/sweets/addSweet')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Chocolate Bar'
@@ -119,7 +119,7 @@ describe('Sweets API - Get All Sweets', () => {
         beforeEach(async () => {
             // Create some test sweets
             await request(app)
-                .post('/api/sweets/addSweet')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Chocolate Bar',
@@ -129,7 +129,7 @@ describe('Sweets API - Get All Sweets', () => {
                 });
 
             await request(app)
-                .post('/api/sweets/addSweet')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Gummy Bears',
@@ -141,7 +141,7 @@ describe('Sweets API - Get All Sweets', () => {
 
         it('should get all sweets with authentication (protected)', async () => {
             const response = await request(app)
-                .get('/api/sweets/getAllSweets')
+                .get('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`);
 
             expect(response.status).toBe(200);
@@ -153,7 +153,7 @@ describe('Sweets API - Get All Sweets', () => {
 
         it('should not get sweets without authentication', async () => {
             const response = await request(app)
-                .get('/api/sweets/getAllSweets');
+                .get('/api/sweets/');
 
             expect(response.status).toBe(401);
             expect(response.body.success).toBe(false);
@@ -166,7 +166,7 @@ describe('Sweets API - Search Sweets', () => {
         beforeEach(async () => {
             // Create test sweets
             await request(app)
-                .post('/api/sweets/addSweet')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Chocolate Bar',
@@ -176,7 +176,7 @@ describe('Sweets API - Search Sweets', () => {
                 });
 
             await request(app)
-                .post('/api/sweets')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Dark Chocolate',
@@ -186,7 +186,7 @@ describe('Sweets API - Search Sweets', () => {
                 });
 
             await request(app)
-                .post('/api/sweets')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Gummy Bears',
@@ -236,7 +236,7 @@ describe('Sweets API - Update Sweet', () => {
 
         beforeEach(async () => {
             const createResponse = await request(app)
-                .post('/api/sweets/addSweet')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Chocolate Bar',
@@ -250,7 +250,7 @@ describe('Sweets API - Update Sweet', () => {
 
         it('should update sweet with authenticated user', async () => {
             const response = await request(app)
-                .put(`/api/sweets/updateSweet/${sweetId}`)
+                .put(`/api/sweets/${sweetId}`)
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     price: 3.49,
@@ -265,7 +265,7 @@ describe('Sweets API - Update Sweet', () => {
 
         it('should not update sweet without authentication', async () => {
             const response = await request(app)
-                .put(`/api/sweets/updateSweet/${sweetId}`)
+                .put(`/api/sweets/${sweetId}`)
                 .send({
                     price: 3.49
                 });
@@ -282,7 +282,7 @@ describe('Sweets API - Delete Sweet', () => {
 
         beforeEach(async () => {
             const createResponse = await request(app)
-                .post('/api/sweets/addSweet')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Chocolate Bar',
@@ -296,7 +296,7 @@ describe('Sweets API - Delete Sweet', () => {
 
         it('should delete sweet with admin privileges', async () => {
             const response = await request(app)
-                .delete(`/api/sweets/deleteSweet/${sweetId}`)
+                .delete(`/api/sweets/${sweetId}`)
                 .set('Authorization', `Bearer ${adminToken}`);
 
             expect(response.status).toBe(200);
@@ -306,7 +306,7 @@ describe('Sweets API - Delete Sweet', () => {
 
         it('should not delete sweet with regular user', async () => {
             const response = await request(app)
-                .delete(`/api/sweets/deleteSweet/${sweetId}`)
+                .delete(`/api/sweets/${sweetId}`)
                 .set('Authorization', `Bearer ${authToken}`);
 
             expect(response.status).toBe(403);
@@ -316,7 +316,7 @@ describe('Sweets API - Delete Sweet', () => {
 
         it('should not delete sweet without authentication', async () => {
             const response = await request(app)
-                .delete(`/api/sweets/deleteSweet/${sweetId}`);
+                .delete(`/api/sweets/${sweetId}`);
 
             expect(response.status).toBe(401);
             expect(response.body.success).toBe(false);
@@ -330,7 +330,7 @@ describe('Sweets API - Purchase Sweet (Inventory)', () => {
 
         beforeEach(async () => {
             const createResponse = await request(app)
-                .post('/api/sweets/addSweet')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Chocolate Bar',
@@ -364,7 +364,7 @@ describe('Sweets API - Purchase Sweet (Inventory)', () => {
         it('should not purchase when out of stock', async () => {
             // Create a sweet with 0 quantity
             const outOfStockResponse = await request(app)
-                .post('/api/sweets/addSweet')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Rare Candy',
@@ -412,7 +412,7 @@ describe('Sweets API - Restock Sweet (Inventory)', () => {
 
         beforeEach(async () => {
             const createResponse = await request(app)
-                .post('/api/sweets/addSweet')
+                .post('/api/sweets/')
                 .set('Authorization', `Bearer ${authToken}`)
                 .send({
                     name: 'Chocolate Bar',
